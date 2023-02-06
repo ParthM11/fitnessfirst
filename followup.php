@@ -51,7 +51,7 @@ include('inc/head.php')
                             </thead>
                             <tbody>
                                 <?php
-                                $sqlIn = "SELECT * FROM `student` as s inner JOIN location as l on s.locationID = l.locationID";
+                                $sqlIn = "SELECT * FROM `student` as s inner JOIN location as l on s.locationID = l.locationID inner join followup as f on f,";
                                 $res = mysqli_query($conn, $sqlIn);
                                 while ($row = mysqli_fetch_assoc($res)) {
                                 ?>

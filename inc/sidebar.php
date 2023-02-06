@@ -265,8 +265,8 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="user.php" class="">
-                                <span class="nav-text">User Master</span>
+                            <a href="all-emp.php" class="">
+                                <span class="nav-text">Staff</span>
                             </a>
                         </li>
                         <li>
@@ -309,6 +309,11 @@
                         <li>
                             <a href="followup-type.php" class="">
                                 <span class="nav-text">Followup Types</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="designation.php" class="">
+                                <span class="nav-text">Designation</span>
                             </a>
                         </li>
                        
