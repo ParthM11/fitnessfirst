@@ -188,25 +188,5 @@ include('./inc/header.php')
 <!-- END: Body-->
 
 </html>
-<?php
-$_SESSION["prodAdd"] = "";
-?>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("#cat").change(function() {
-            var catID = $(this).val();
-            var subCatID = $(subCat).val();
-            console.log(subCatID);
-            $.ajax({
-                url: "find_sub.php",
-                method: "POST",
-                data: {
-                    catID: catID
-                },
-                success: function(data) {
-                    $("#subCat").html(data);
-                }
-            });
-        });
-    });
+
 </script>

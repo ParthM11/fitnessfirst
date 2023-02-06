@@ -41,13 +41,15 @@ include('inc/head.php')
                                 </thead>
                                 <tbody>
 
-
+                                    <?php 
+                                        $sqlexpcat = "SELECT * from expensecat";
+                                        $resexpcat = mysqli_query($conn,$sqlexpcat);
+                                        while($rowexpcat = mysqli_fetch_assoc($resexpcat)){
+                                     ?>
                                     <tr>
-
-
-                                        <td></td>
-                                        <td></td>
-                                        <td>lol</td>
+                                        <td><?=$rowexpcat['expcatID']?></td>
+                                        <td><?=$rowexpcat['expcat']?></td>
+                                        <td><?=$rowexpcat['expsubcat']?></td>
 
                                         <td>
                                         <div class="btn-group" role="group">
@@ -71,6 +73,7 @@ include('inc/head.php')
                                     </td>
 
                                     </tr>
+                                <?php } ?>
 
 
 

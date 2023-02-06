@@ -1,3 +1,16 @@
+<?php 
+    include_once 'db_conn.php';
+    if(isset($_POST['subExpCat']))
+    {
+        $cat = getSafeValue($conn,$_POST['cat']);
+        $subCat = getSafeValue($conn,$_POST['subCat']);
+        $sqlAdd = "INSERT INTO expensecat (expcat,expsubcat) VALUES ('$cat','$subCat')";
+        if(mysqli_query($conn, $sqlAdd))
+        {
+            header("Location: exp-category.php");
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <?php
@@ -34,21 +47,21 @@ include('inc/head.php')
                                                     <strong>Expense Category</strong>
                                                 </div>
                                                 <div class="card-body">
-                                                    <form>
+                                                    <form method="post" action="">
                                                         <div class="form-group row">
                                                             <label for="inputEmail3" class="col-md-1 col-form-label">Category Name</label>
                                                             <div class="col-md-2">
-                                                                <input type="name" class="form-control" id="" name="">
+                                                                <input type="name" class="form-control" id="" name="cat">
                                                             </div>
 
                                                             <label for="inputEmail3" class="col-md-2 col-form-label">Sub Category Name</label>
                                                             <div class="col-md-2">
-                                                                <input type="name" class="form-control" id="" name="">
+                                                                <input type="name" class="form-control" id="" name="subCat">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <div class="col-md-2">
-                                                                <button type="submit" class="btn btn-primary mt-1">Add</button>
+                                                                <button type="submit" class="btn btn-primary mt-1" name="subExpCat">Add</button>
                                                                 <a type="" class="btn btn-secondary mt-1" href="exp-category.php">Cancel</a>
                                                             </div>
                                                         </div>

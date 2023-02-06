@@ -1,18 +1,20 @@
 <?php 
     include_once 'db_conn.php';
-    $_SESSION['expensAdd'] = "active";
-    if(isset($_POST['subProd']))
+    if(isset($_POST['subAddexp']))
     {
-        $prodName = getSafeValue($conn,$_POST['prodName']);
-        $HSNcode = getSafeValue($conn,$_POST['HSNcode']);
-        $location = getSafeValue($conn,$_POST['location']);
-        $cat = getSafeValue($conn,$_POST['cat']);
-        $subCat = getSafeValue($conn,$_POST['subCat']);
-        $desp = getSafeValue($conn,$_POST['desp']);
-        $sqlAdd = "INSERT INTO product (prodName,HSNcode,businessLocationID,catID,subCatID,desp) VALUES ('$prodName','$HSNcode','$location','$cat','$subCat','$desp')";
+        $locationID = getSafeValue($conn,$_POST['locationID']);
+        $expcatID = getSafeValue($conn,$_POST['expcatID']);
+        $expdate = getSafeValue($conn,$_POST['expdate']);
+        $amnt = getSafeValue($conn,$_POST['amnt']);
+        $remarks = getSafeValue($conn,$_POST['remarks']);
+        $payamnt = getSafeValue($conn,$_POST['payamnt']);
+        $paycat = getSafeValue($conn,$_POST['paycat']);
+        $paydate = getSafeValue($conn,$_POST['paydate']);
+        $payremark = getSafeValue($conn,$_POST['payremark']);
+        $sqlAdd = "INSERT INTO expense (locationID,expcatID,expdate,amnt,remarks,payamnt,paydate,paycat,payremark) VALUES ('$locationID','$expcatID','$expdate','$amnt','$remarks','$payamnt','$paydate','$paycat','$payremark');
         if(mysqli_query($conn, $sqlAdd))
         {
-            header("Location: listproduct.php");
+            header("Location: exp-list.php");
         }
     }
 ?><!DOCTYPE html>
@@ -76,11 +78,18 @@ include('inc/head.php')
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
                                                             <label for="formrow-inputRef" class="form-label">Business Location</label>
-                                                            <select id="" class="form-select">
-                                                                <option selected>Choose...</option>
-                                                                <option>Vesu</option>
-                                                                <option>Katargam</option>
-                                                                <option>Adajan</option>
+                                                            <select id="" class="form-select" name="locations">
+                                                                 <option value="" selected disabled hidden>Choose...</option>
+                                                                <?php
+                                                                $sqlLocation = "SELECT * from location";
+                                                                $resLoc  = mysqli_query($conn, $sqlLocation);
+                                                                while ($rowLoc = mysqli_fetch_assoc($resLoc)) {
+
+                                                                ?>
+                                                                    <option value="<?= $rowLoc['locationID'] ?>" >
+                                                                        <?= $rowLoc['locationName'] ?>
+                                                                    </option>
+                                                                <?php } ?>
                                                                 
                                                             </select>
                                                         </div>
@@ -88,11 +97,18 @@ include('inc/head.php')
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
                                                             <label for="formrow-inputRef" class="form-label">Expense Category</label>
-                                                            <select id="" class="form-select">
-                                                                <option selected>Choose...</option>
-                                                                <option>Breakfast</option>
-                                                                <option>Clothing</option>
-                                                                <option>Something</option>
+                                                            <select id="" class="form-select" name="expcat">
+                                                                <option value="" selected disabled hidden>Choose...</option>
+                                                                <?php
+                                                                $sqlExp = "SELECT * from expensecat";
+                                                                $resExp  = mysqli_query($conn, $sqlExp);
+                                                                while ($rowExp = mysqli_fetch_assoc($resExp)) {
+
+                                                                ?>
+                                                                    <option value="<?= $rowExp['expcatID'] ?>" >
+                                                                        <?= $rowExp['expsubcat'] ?>
+                                                                    </option>
+                                                                <?php } ?>
                                                                 
                                                             </select>
                                                         </div>
@@ -111,7 +127,7 @@ include('inc/head.php')
                                                         <div class="mb-3" id="datepicker2">
 
                                                             <label for="formrow-firstname-input" class="form-label">Expense Date</label>
-                                                            <input type="date" class="form-control" placeholder="dd M, yyyy" >
+                                                            <input type="date" class="form-control" placeholder="dd M, yyyy" name="expdate">
 
                                                         </div>
                                                     </div>
@@ -119,13 +135,13 @@ include('inc/head.php')
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
                                                             <label for="formrow-name-input" class="form-label">Total Amount</label>
-                                                            <input type="number" class="form-control" id="">
+                                                            <input type="number" class="form-control" id="" name="amnt">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
                                                             <label for="formrow-name-input" class="form-label">Remarks</label>
-                                                            <input type="text" class="form-control" id="">
+                                                            <input type="text" class="form-control" id="" name="remarks">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -141,19 +157,19 @@ include('inc/head.php')
                                                 <div class="col-md-6">
                                                         <div class="mb-3">
                                                             <label for="formrow-name-input" class="form-label">Total Amount</label>
-                                                            <input type="number" class="form-control" id="">
+                                                            <input type="number" class="form-control" id="" name="payamnt">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
                                                         <label for="formrow-firstname-input" class="form-label">Paid On</label>
-                                                            <input type="date" class="form-control" placeholder="dd M, yyyy" >
+                                                            <input type="date" class="form-control" placeholder="dd M, yyyy" name="paydate">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
                                                             <label for="formrow-inputRef" class="form-label">Payment Category</label>
-                                                            <select id="" class="form-select">
+                                                            <select id="" class="form-select" name="paycat">
                                                                 <option selected>Choose...</option>
                                                                 <option>Cash</option>
                                                                 <option>Card</option>
@@ -166,14 +182,14 @@ include('inc/head.php')
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
                                                             <label for="formrow-name-input" class="form-label">Payment Remarks</label>
-                                                            <input type="text" class="form-control" id="">
+                                                            <input type="text" class="form-control" id="" name="payremark">
                                                         </div>
                                                     </div>
                                        </div>
                                             </div>
                                         </div>
                                         
-                                        <button type="submit" class="btn btn-success w-md">Add Expense</button>
+                                        <button type="submit" class="btn btn-success w-md" name="subAddexp">Add Expense</button>
 
 
                                     </form>
