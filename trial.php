@@ -26,18 +26,30 @@ if (isset($_GET['id'])) {
     $firstName = $rowStud['stdfName'];
     $contact = $rowStud['stdContact'];
 }
-if (isset($_POST['subConfirmAdd'])) {
+if (isset($_POST['subBooktrial'])) {
 
-    $stdID = getSafeValue($conn, $_POST['firstName']);
-    $trainer = getSafeValue($conn, $_POST['lastName']);
-    $chkt1 = getSafeValue($conn, $_POST['age']);
-    $chkt2 = getSafeValue($conn, $_POST['gender']);
-    $chkt3 = getSafeValue($conn, $_POST['email']);
-    $school = getSafeValue($conn, $_POST['school']);
-    $sqlAdd = "INSERT INTO studentdetails (DOB,fatherName,motherName,fatherContact,motherContact,emergencyContactName,emergencyContactNum,programID,transportID,fatherOccupation,motherOccupation,dayID,timeID) VALUES ('$DOB','$fatherName','$motherName','$fatherContact','$motherContact','$emergencyContactName','$emergencyContactNum','$program','$transport','$fatherOccupation','$motherOccupation','$day','$time')";
+    $stdID = getSafeValue($conn, $_POST['stdID']);
+    $trainer = getSafeValue($conn, $_POST['trainer']);
+    $chkt1 = "";
+    $chkt2 = "";
+    $chkt3 = "";
+    if (isset($_POST['chkt1']))
+    {
+        $chkt1 = getSafeValue($conn, $_POST['chkt1']);        
+    }
+    if (isset($_POST['chkt2']))
+    {
+        $chkt2 = getSafeValue($conn, $_POST['chkt2']);        
+    }
+    if (isset($_POST['chkt3']))
+    {
+        $chkt3 = getSafeValue($conn, $_POST['chkt3']);        
+    }    
+    $sqlAdd = "INSERT INTO trial (trainer,stdID,trial1,trial2,trial3) VALUES ('$trainer','$stdID','$chkt1','$chkt2','$chkt3')";
+
     if (mysqli_query($conn, $sqlAdd)) {
         $lastID = encrypt(mysqli_insert_id($conn));
-        header("Location: inquiry.php");
+        header("Location: all-inquiry.php");
     } else {
         $msg = "creating failed";
     }
@@ -46,7 +58,7 @@ if (isset($_POST['subConfirmAdd'])) {
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include('inc/head.php')
+    include('inc/head.php')
 ?>
 <title>Trial Booking</title>
 
@@ -54,7 +66,7 @@ include('inc/head.php')
     <div id="layout-wrapper">
         <!-- ############ Aside START-->
         <?php
-        include('inc/sidebar.php')
+         include('inc/sidebar.php')
         ?>
         <!-- ############ Aside END-->
         <div id="main" class="layout-column flex">
@@ -92,6 +104,7 @@ include('inc/head.php')
                                                         <input type="name" class="form-control" id="firstName" name="firstName" value="<?= $firstName ?>" required>
                                                     </div>
                                                 </div>
+                                                <input type="hidden" class="form-control" id="stdID" name="stdID" value="<?=$id?>" >
 
 
                                                 <div class="col-md-3">
@@ -115,9 +128,9 @@ include('inc/head.php')
                                                     <div class="mb-3">
                                                         <label for="firstName" class="form-label">Available Trails</label>
                                                         <ul>
-                                                            <li><input type="checkbox" class="form-check-input" id="contact" name="chb1" > Trial 1 </li>
-                                                            <li><input type="checkbox" class="form-check-input" id="contact" name="chb2" > Trial 2 </li>
-                                                            <li><input type="checkbox" class="form-check-input" id="contact" name="chb3" > Trial 3</li>
+                                                            <li><input type="checkbox" class="form-check-input" id="contact" name="chkt1" value="1" > Trial 1 </li>
+                                                            <li><input type="checkbox" class="form-check-input" id="contact" name="chkt2" value="1"> Trial 2 </li>
+                                                            <li><input type="checkbox" class="form-check-input" id="contact" name="chkt3" value="1"> Trial 3</li>
                                                         </ul>
 
                                                     </div>

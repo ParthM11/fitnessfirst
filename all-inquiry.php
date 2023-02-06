@@ -102,7 +102,8 @@ include('inc/head.php')
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sqlIn = "SELECT * FROM `student` as s inner JOIN location as l on s.locationID = l.locationID";
+                                    $sqlIn = "SELECT s.*,l.locationName,t.trial1,t.trial2,t.trial3 FROM `student` as s inner JOIN location as l on s.locationID = l.locationID
+                                    left join trial as t on t.stdID = s.stdID";
                                     $res = mysqli_query($conn, $sqlIn);
                                     while ($row = mysqli_fetch_assoc($res)) {
                                     ?>
@@ -113,29 +114,57 @@ include('inc/head.php')
                                             <td class="flex"><?= $row['stdContact'] ?></td>
 
                                             <td>
+                                                <?php 
+                                                    if($row['priority'] == "High"){
+                                                ?>
                                                 <span class="badge  bg-success">
                                                     High
                                                 </span>
+                                            <?php } ?>
+                                            <?php 
+                                                if($row['priority'] == "Med"){
+                                                ?>
                                                 <span class="badge  bg-primary">
                                                     Med
                                                 </span>
+                                            <?php } ?>
+                                            <?php 
+                                                if($row['priority'] == "Low"){
+                                                ?>
                                                 <span class="badge  bg-dark ">
                                                     Low
                                                 </span>
+                                            <?php } ?>
                                             </td>
                                             <td>
+                                                <?php 
+                                                    if($row['trial1'] != "1" && $row['trial2'] != "1" && $row['trial3'] != "1" ){
+                                                ?>
                                                 <span class="badge  bg-warning">
                                                     Not Taken
                                                 </span>
+                                                <?php } ?>
+                                                <?php 
+                                                    if($row['trial1'] == "1"){
+                                                ?>
                                                 <span class="badge  bg-success">
                                                     Trial 1
                                                 </span>
+                                            <?php } ?>
+                                            <?php 
+                                                    if($row['trial2'] == "1"){
+                                            ?>
                                                 <span class="badge  bg-primary">
                                                     Trial 2
                                                 </span>
+                                                <?php } ?>
+                                            <?php 
+                                                    if($row['trial3'] == "1"){
+                                            ?>
                                                 <span class="badge  bg-dark">
                                                     Trial 3
                                                 </span>
+                                            <?php } ?>
                                             </td>
                                             <td>Person Handaling This</td>
                                             <td class="flex"><?= $row['locationName'] ?></td>
