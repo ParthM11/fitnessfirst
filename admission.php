@@ -9,6 +9,7 @@ if (!isset($_POST['subConfirmAdd'])) {
     $email = "";
     $school = "";
     $location = "";
+    
 }
 if (isset($_GET['id'])) {
     $id = getSafeValue($conn, decrypt($_GET['id']));
@@ -46,11 +47,12 @@ if (isset($_POST['subConfirmAdd'])) {
     $school = getSafeValue($conn, $_POST['school']);
     $location = getSafeValue($conn, $_POST['location']);
     $program = getSafeValue($conn, $_POST['program']);
+    $mempackID = getSafeValue($conn, $_POST['mempack']);
     $day = getSafeValue($conn, $_POST['day']);
     $DOB = getSafeValue($conn, $_POST['DOB']);
     $time = getSafeValue($conn, $_POST['time']);
     $transport = getSafeValue($conn, $_POST['transport']);
-    $sqlAdd = "INSERT INTO studentdetails (stdID,DOB,fatherName,motherName,fatherContact,motherContact,emergencyContactName,emergencyContactNum,programID,transportID,fatherOccupation,motherOccupation,dayID,timeID) VALUES ('$id','$DOB','$fatherName','$motherName','$fatherContact','$motherContact','$emergencyContactName','$emergencyContactNum','$program','$transport','$fatherOccupation','$motherOccupation','$day','$time')";
+    $sqlAdd = "INSERT INTO studentdetails (stdID,mempackID,DOB,fatherName,motherName,fatherContact,motherContact,emergencyContactName,emergencyContactNum,programID,transportID,fatherOccupation,motherOccupation,dayID,timeID) VALUES ('$id','$mempackID','$DOB','$fatherName','$motherName','$fatherContact','$motherContact','$emergencyContactName','$emergencyContactNum','$program','$transport','$fatherOccupation','$motherOccupation','$day','$time')";
     if (mysqli_query($conn, $sqlAdd)) {
         $lastID = encrypt(mysqli_insert_id($conn));
         header("Location: all-inquiry.php");
@@ -234,6 +236,21 @@ include('inc/head.php')
                                                             while ($rowprog = mysqli_fetch_assoc($resProg)) {
                                                             ?>
                                                                 <option value="<?= $rowprog['programID'] ?>"><?= $rowprog['programName'] ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="program" class="form-label">Membership Package</label>
+                                                        <select id="program" class="form-control" name="mempack">
+                                                            <option value="" selected disabled hidden>Choose...</option>
+                                                            <?php
+                                                            $sqlMempack = "SELECT * from memberpackage";
+                                                            $resMempack  = mysqli_query($conn, $sqlMempack);
+                                                            while ($rowMempack = mysqli_fetch_assoc($resMempack)) {
+                                                            ?>
+                                                                <option value="<?= $rowMempack['mempackID'] ?>"><?= $rowMempack['planName'] ?></option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>
