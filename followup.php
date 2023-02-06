@@ -36,7 +36,6 @@ include('inc/head.php')
                                 <tr>
                                     <th data-sortable="true" data-field="id">ID</th>
                                     <th data-sortable="true" data-field="date">Date</th>
-                                    <th data-sortable="true" data-field="time">Time</th>
                                     <th data-sortable="true" data-field="fullname">Full Name</th>
                                     <th data-sortable="true" data-field="type">Type</th>
                                     <th data-sortable="true" data-field="Mobile">Mobile</th>
@@ -51,18 +50,15 @@ include('inc/head.php')
                             </thead>
                             <tbody>
                                 <?php
-                                $sqlIn = "SELECT * FROM `student` as s inner JOIN location as l on s.locationID = l.locationID";
+                                $sqlIn = "SELECT * FROM `student` as s inner JOIN location as l on s.locationID = l.locationID inner join followup as f on f.stdID = s.stdID inner join followuptype as ft on f.type = ft.fuptypeID order by f.priority ";
                                 $res = mysqli_query($conn, $sqlIn);
                                 while ($row = mysqli_fetch_assoc($res)) {
                                 ?>
                                     <tr class=" flex">
                                         <td class="flex"><?= $row['stdID'] ?></td>
                                         <td><?= $row['date'] ?></td>
-                                        <td>time</td>
                                         <td class="flex"><?= $row['stdfName'] . " " . $row['stdlName'] ?></td>
-                                        <td>
-                                            Some Reason
-                                        </td>
+                                        <td><?= $row['followType'] ?></td>
                                         <td class="flex"><?= $row['stdContact'] ?></td>
 
 

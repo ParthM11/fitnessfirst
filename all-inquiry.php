@@ -180,7 +180,7 @@ include('inc/head.php')
                                                             <i data-feather="edit-2" class="me-25"></i>
                                                             <span>Edit</span>
                                                         </a>
-                                                        <a class="dropdown-item" href="add-followup.php"><i data-feather="edit-2" class="me-25"></i>
+                                                        <a class="dropdown-item" href="add-followup.php?id=<?= encrypt($row['stdID']) ?>"><i data-feather="edit-2" class="me-25"></i>
                                                             <span>Schedule Follow-Up</span></a>
 
                                                         <a class="dropdown-item" href="trial.php?id=<?= encrypt($row['stdID']) ?>">

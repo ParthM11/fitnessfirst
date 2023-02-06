@@ -2,6 +2,7 @@
 include_once 'db_conn.php';
 
 if (!isset($_POST['subFollowup'])) {
+    $id = "";
     $date = "";
     $type = "";
     $task = "";
@@ -9,13 +10,13 @@ if (!isset($_POST['subFollowup'])) {
 }
 if (isset($_GET['id'])) {
     $id = decrypt(getSafeValue($conn, ($_GET['id'])));
-    $sqlFollow = "SELECT * from followup as f where f.fupID = $id";
-    $resFollow  = mysqli_query($conn, $sqlFollow);
-    $rowFollow= mysqli_fetch_assoc($resFollow);
-    $date = $rowFollow['date'];
-    $type = $rowFollow['type'];
-    $task = $rowFollow['task'];
-    $priority = $rowFollow['priority'];
+    // $sqlFollow = "SELECT * from followup as f where f.stdID = $id";
+    // $resFollow  = mysqli_query($conn, $sqlFollow);
+    // $rowFollow= mysqli_fetch_assoc($resFollow);
+    // $date = $rowFollow['date'];
+    // $type = $rowFollow['type'];
+    // $task = $rowFollow['task'];
+    // $priority = $rowFollow['priority'];
 }
 
 if (isset($_POST['subFollowup'])) {
@@ -24,6 +25,7 @@ if (isset($_POST['subFollowup'])) {
     $type = getSafeValue($conn, $_POST['type']);
     $task = getSafeValue($conn, $_POST['task']);
     $priority = getSafeValue($conn, $_POST['priority']);
+    $stdID = getSafeValue($conn, $_POST['stdID']);
     if (isset($_GET['id'])) {
         $fupID = decrypt(getSafeValue($conn, $_GET['id']));
         $updateProdSql = "UPDATE product SET prodName = '$prodName', HSNcode = '$HSNcode', businessLocationID = '$location', catID = '$cat', subCatID = '$subCat', desp = '$desp' WHERE prodID = $prodID";
@@ -31,10 +33,10 @@ if (isset($_POST['subFollowup'])) {
             header("Location: all-product.php");
         }
     } else {
-        $sqlAdd = "INSERT INTO followup (`date`,type,task,priority) VALUES ('$date','$type','$task','$priority')";
+        $sqlAdd = "INSERT INTO followup (`date`,stdID,type,task,priority) VALUES ('$date','$stdID','$type','$task','$priority')";
         if (mysqli_query($conn, $sqlAdd)) {
             $lastID = encrypt(mysqli_insert_id($conn));
-            header("Location: all-product.php");
+            header("Location: followup.php");
         } else {
             $msg = "creating failed";
         }
@@ -87,7 +89,7 @@ include('./inc/header.php')
                                             <h4 class="card-title">Details</h4>
                                         </div>
                                         <div class="card-body">
-                                            <form class="" role="form" action="" method="POST">
+                                            <form  action="add-followup.php" method="POST">
 
                                                 <div class="form-group">
 
@@ -117,7 +119,8 @@ include('./inc/header.php')
 
                                                     </select>
                                                 </div>
-
+                                                <input type="hidden" class="form-control" placeholder="Enter Task" name="stdID"
+                                                value="<?=$id?>">
                                                 <div class="form-group">
                                                     <label>Task</label>
                                                     <input type="text" class="form-control" placeholder="Enter Task" name="task">
