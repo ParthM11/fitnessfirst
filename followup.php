@@ -57,8 +57,8 @@ include('inc/head.php')
                                 ?>
                                     <tr class=" flex">
                                         <td class="flex"><?= $row['stdID'] ?></td>
-                                        <td>date</td>
-                                        <td>Time</td>
+                                        <td><?= $row['date'] ?></td>
+                                        <td>time</td>
                                         <td class="flex"><?= $row['stdfName'] . " " . $row['stdlName'] ?></td>
                                         <td>
                                             Some Reason
