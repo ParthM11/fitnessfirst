@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once 'db_conn.php';
 if (isset($_SESSION['userID'])) {
     header("Location: index.php");
