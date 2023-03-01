@@ -1,3 +1,21 @@
+<?php
+    include_once 'db_conn.php'; 
+    if(isset($_POST['subBranch']))
+    {
+        $branchName = $_POST['branchName'];
+        $addressL1 = $_POST['addressL1'];
+        $addressL2 = $_POST['addressL1'];
+        $city = $_POST['city'];
+        $state = $_POST['state'];
+        $country = $_POST['country'];
+        $printName = $_POST['printName'];
+        
+        $branchMaster= "INSERT INTO `location` (`locationName`, `addline1`,`addline2`, `city`, `state`, `country`, `printname`) VALUES ('$branchName','$addressL1','$addressL2','$city','$state','$country','$printName')";
+        echo $branchMaster;
+         if(mysqli_query($conn,$branchMaster))
+            header("Location: branch.php");
+    }
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <?php
@@ -34,11 +52,11 @@ include('inc/head.php')
                                                     <strong>Branch Master</strong>
                                                 </div>
                                                 <div class="card-body">
-                                                    <form>
+                                                    <form method="post" action="">
                                                         <div class="form-group row">
                                                             <label for="inputEmail3" class="col-sm-1 col-form-label">Branch Name</label>
                                                             <div class="col-md-2">
-                                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Branch Name">
+                                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Branch Name" name="branchName">
                                                             </div>
 
 
@@ -46,42 +64,42 @@ include('inc/head.php')
                                                         <div class="form-group row">
                                                             <label for="inputEmail3" class="col-sm-1 col-form-label">Address Line 1</label>
                                                             <div class="col-md-2">
-                                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Address     ">
+                                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Address" name="addressL1">
                                                             </div>
                                                             <label for="inputEmail3" class="col-sm-1 col-form-label">Address Line 2</label>
                                                             <div class="col-md-2">
-                                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Address     ">
+                                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Address" name="addressL2">
                                                             </div>
                                                             <label for="inputEmail3" class="col-sm-1 col-form-label">City</label>
                                                              <div class="col-md-2">
-                                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter City     ">
+                                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter City" name="city">
                                                             </div>
                                                             <label for="inputEmail3" class="col-sm-1 col-form-label">State</label>
                                                              <div class="col-md-2">
-                                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter State     ">
+                                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter State     " name="state">
                                                             </div>
                                                             <label for="inputEmail3" class="col-sm-1 col-form-label">Country</label>
                                                             <div class="col-md-2">
-                                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Country     ">
+                                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Country     " name="country">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label for="inputEmail3" class="col-sm-1 col-form-label">Print Name</label>
                                                             <div class="col-md-2">
-                                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Print name">
+                                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Print name" name="printName">
                                                             </div>
                                                             <label for="inputEmail3" class="col-sm-1 col-form-label">Active</label>
                                                             <div class="col-md-2">
-                                                                <select class="form-control">
-                                                                    <option>Yes</option>
-                                                                    <option>No</option>
+                                                                <select class="form-control" name="active">
+                                                                    <option value="1">Yes</option>
+                                                                    <option value="0">No</option>
                                                                 </select>
                                                             </div>
 
                                                         </div>
 
 
-                                                        <button type="submit" class="btn btn-primary mt-1">Save</button>
+                                                        <button type="submit" class="btn btn-primary mt-1" name="subBranch">Save</button>
                                                         <button type="" class="btn btn-secondary mt-1">Cancel</button>
                                                     </form>
                                                 </div>

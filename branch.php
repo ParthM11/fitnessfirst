@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include('inc/head.php')
+include('inc/head.php');
+include_once "db_conn.php";
+
 ?>
 <title>Branch Master</title>
 
@@ -37,15 +39,20 @@ include('inc/head.php')
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php 
+                                    $sqlBranch = "SELECT * from location";
+                                    $resBranch = mysqli_query($conn,$sqlBranch);
+                                    while ($rowBranch = mysqli_fetch_assoc($resBranch)) {
+                                 ?>
                                 <tr class=" flex">
                                     <td class="flex">
                                         <div class="item-except text-muted text-sm h-1x">
-                                            Id
+                                            <?=$rowBranch['locationID']?>
                                         </div>
                                     </td>
                                     <td class="flex">
                                         <div class="item-except text-muted text-sm h-1x">
-                                            Branch name
+                                            <?=$rowBranch['locationName']?>
                                         </div>
                                     </td>
 
@@ -71,7 +78,7 @@ include('inc/head.php')
 
                                     </td>
                                 </tr>
-
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
