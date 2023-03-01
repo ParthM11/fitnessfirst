@@ -27,7 +27,7 @@ include('inc/head.php')
                 <div class="page-content">
                     <div class="container-fluid">
                     <H5>Role List</H5>
-                    <a href="roles-edit.php" class="btn btn-primary">Add</a>
+                    <a href="role-add.php" class="btn btn-primary">Add</a>
                     <div id="toolbar">
 
                     </div>
