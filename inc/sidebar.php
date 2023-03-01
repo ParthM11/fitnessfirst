@@ -270,7 +270,12 @@
                             </a>
                         </li>
                         <li>
-                            <a href="roles.php" class="">
+                            <a href="u_user.php" class="">
+                                <span class="nav-text">User</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="role.php" class="">
                                 <span class="nav-text">Roles</span>
                             </a>
                         </li>
