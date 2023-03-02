@@ -1,5 +1,5 @@
 <?php
-include_once 'connection.php';
+include_once 'db_conn.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,17 +35,14 @@ include('inc/head.php')
                             <tr>
                                 <th data-sortable="true" data-field="id">ID</th>
                                 <th data-sortable="true" data-field="owner">User Name</th>
-                                <th data-sortable="true" data-field="owner">Email</th>
-                                <th data-sortable="true" data-field="owner">Mobile</th>
-                                <th data-sortable="true" data-field="owner">Last Login</th>
                                 <th data-sortable="true" data-field="owner">User Type</th>
-
+                                <th data-sortable="true" data-field="owner">Last Login</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $sqlCred = "SELECT * from creds as c inner join userrole as ur on c.userRole = ur.userRoleID";
+                            $sqlCred = "SELECT * from creds as c inner join roles as r on c.roleID = r.roleID";
                             $resCred = mysqli_query($conn, $sqlCred);
                             while ($rowCred = mysqli_fetch_assoc($resCred)) {
                             ?>
@@ -62,12 +59,7 @@ include('inc/head.php')
                                     </td>
                                     <td class="flex">
                                         <div class="item-except text-muted text-sm h-1x">
-                                            <?= $rowCred['email'] ?>
-                                        </div>
-                                    </td>
-                                    <td class="flex">
-                                        <div class="item-except text-muted text-sm h-1x">
-                                            <?= $rowCred['phone'] ?>
+                                            <?= $rowCred['role'] ?>
                                         </div>
                                     </td>
                                     <td class="flex">
@@ -75,16 +67,6 @@ include('inc/head.php')
                                             Last Login
                                         </div>
                                     </td>
-                                    <td class="flex">
-                                        <div class="item-except text-muted text-sm h-1x">
-                                            <?= $rowCred['userRoleName'] ?>
-                                        </div>
-                                    </td>
-
-
-
-
-
                                     <td>
                                         <div class="item-action dropdown">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">

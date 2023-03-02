@@ -1,5 +1,5 @@
 <?php
-include_once 'connection.php';
+include_once 'db_conn.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,16 +44,12 @@ include('inc/head.php')
                         </thead>
                         <tbody>
                             <?php
-                            $sqlRole = "SELECT * FROM `permissionmanager`";
+                            $sqlRole = "SELECT * FROM `roles`";
                             $resRole = mysqli_query($conn, $sqlRole);
                             while ($rowRole = mysqli_fetch_assoc($resRole)) {
+                                $permission = "";
                             ?>
                                 <tr class=" flex">
-                                    <td class="flex">
-                                        <div class="item-except text-muted text-sm h-1x">
-                                            <?= $rowRole['perMngID'] ?>
-                                        </div>
-                                    </td>
                                     <td class="flex">
                                         <div class="item-except text-muted text-sm h-1x">
                                             <?= $rowRole['roleID'] ?>
@@ -61,12 +57,24 @@ include('inc/head.php')
                                     </td>
                                     <td class="flex">
                                         <div class="item-except text-muted text-sm h-1x">
-                                            <?= $rowRole['perID'] ?>
+                                            <?= $rowRole['role'] ?>
                                         </div>
                                     </td>
+                                    <?php 
+                                        $roleID = $rowRole['roleID'];
+                                        $sqlPer ="SELECT * from permissionmanager as pm inner join permisson as p on pm.perID = p.perID where pm.roleID  = $roleID";
+                                        $resPer = mysqli_query($conn,$sqlPer);
+                                        while ($rowPer = mysqli_fetch_assoc($resPer))
+                                        {
+                                            $permission .= $rowPer['perName'] . ",";
+                                        }
+                                     ?>
+                                    <td class="flex">
+                                        <div class="item-except text-muted text-sm h-1x">
+                                            <?= $permission?>
 
-
-
+                                        </div>
+                                    </td>
 
 
                                     <td>
@@ -81,10 +89,6 @@ include('inc/head.php')
                                                 <a class="dropdown-item download" href="delete.php?type=state&id=<?= $rowState['id'] ?>">
                                                     Delete
                                                 </a>
-
-
-
-
                                             </div>
                                         </div>
                                     </td>

@@ -1,5 +1,21 @@
 <?php
-include_once 'connection.php';
+include_once 'db_conn.php';
+if(isset($_POST['subUser']))
+{
+    $userName = $_POST['userName'];
+    $userRole = $_POST['userRole'];
+    $password = $_POST['password'];
+    $email = $_POST['email'];
+    $status = $_POST['status'];
+    $phone = $_POST['phone'];
+    $location = $_POST['location'];
+    
+    $sqlCredIns = "INSERT INTO `creds` (`userName`, `email`, `password`, `phone`, `userRole`,`status`,`location`) VALUES ('$userName','$email','$password','$phone','$userRole','$status','$location')";
+    
+
+    if(mysqli_query($conn,$sqlCredIns))
+        header("Location: u_user.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,18 +75,18 @@ include('inc/head.php')
                                                         <label for="inputEmail3" class="col-sm-1 col-form-label">Mobile Number</label>
                                                         <div class="col-md-2">
                                                             <input type="number" name="phone" class="form-control" id="inputEmail3" placeholder="Enter City Name">
-                                                        </div>
+                                                        </div>                                                                           <label for="inputEmail3" class="col-sm-1 col-form-label">Role Type</label>
                                                         <div class="col-md-2">
                                                             <?php
-                                                            $sqlAtds = "SELECT * from userrole ";
-                                                            $resAtds = mysqli_query($conn, $sqlAtds);
+                                                                $sqlAtds = "SELECT * from roles ";
+                                                                $resAtds = mysqli_query($conn, $sqlAtds);
                                                             ?>
                                                             <select class="form-control" name="userRole">
                                                                 <option disabled selected hidden>Select Role</option>
                                                                 <?php
                                                                 while ($rowUserTypes = mysqli_fetch_assoc($resAtds)) {
                                                                 ?>
-                                                                    <option value="<?= $rowUserTypes['userRoleID'] ?>"><?= $rowUserTypes['userRoleName'] ?></option>
+                                                                    <option value="<?= $rowUserTypes['roleID'] ?>"><?= $rowUserTypes['role'] ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                         </div>
@@ -78,8 +94,8 @@ include('inc/head.php')
                                                         <label for="inputEmail3" class="col-sm-1 col-form-label">Status</label>
                                                         <div class="col-md-2">
                                                             <select class="form-control" name="status">
-                                                                <option>Active</option>
-                                                                <option>inactive</option>
+                                                                <option value="1">Active</option>
+                                                                <option value="2">inactive</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -87,7 +103,7 @@ include('inc/head.php')
                                                         <label for="inputEmail3" class="col-sm-1 col-form-label">Location</label>
                                                         <div class="col-md-2">
                                                             <?php
-                                                            $sqlBranch = "SELECT * from branchmaster ";
+                                                            $sqlBranch = "SELECT * from location ";
                                                             $resBranch = mysqli_query($conn, $sqlBranch);
                                                             ?>
                                                             <select class="form-control" name="location">
@@ -95,7 +111,7 @@ include('inc/head.php')
                                                                 <?php
                                                                 while ($rowBranch = mysqli_fetch_assoc($resBranch)) {
                                                                 ?>
-                                                                    <option value="<?= $rowBranch['id'] ?>"><?= $rowBranch['branch_name'] ?></option>
+                                                                    <option value="<?= $rowBranch['locationID'] ?>"><?= $rowBranch['locationNam'] ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                         </div>

@@ -1,5 +1,5 @@
 <?php 
-    include_once 'connection.php';
+    include_once 'db_conn.php';
     if(isset($_POST['subNewRole']))
     {
         $roleName = $_POST['roleName'];
@@ -83,8 +83,14 @@ include('inc/head.php')
                                                                     <th><?=$rowPer['perName']?></th>
                                                                     <th></th>
                                                                     <th><input type="checkbox" class="form-check" id="role[]" name="role[]" value="<?=$rowPer['perID']?>"></th>
+                                                                    <td></td>
+                                                                    <th></th>
+                                                                    <th></th>
+                                                                    <th></th>
+                                                                    <th><input type="checkbox" class="form-check" id="role[]" name="role[]" value="<?=$rowPer['perID']?>">edit</th>
                                                                     </tr>
-                                                                <?php } ?>
+
+                                                                <?php }?>
                                                                      
                                                                 </table>
                                                             </div>
