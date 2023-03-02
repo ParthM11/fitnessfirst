@@ -1,29 +1,20 @@
 <?php
 session_start();
 include_once 'db_conn.php';
-if (isset($_SESSION['userID'])) {
-    header("Location: index.php");
-}
-$msg = '';
-if (isset($_GET['error']) && $_GET['error'] != '') {
-    $msg = $_GET['error'];
-}
-if (isset($_POST['subLogin'])) {
-    $userName = getSafeValue($conn, $_POST['userName']);
-    $pass = getSafeValue($conn, $_POST['password']);
-    $sql = "SELECT * from creds as c inner join roles as r on c.roleID = r.roleID where userName = '$userName' AND password = '$pass' ";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $_SESSION['role'] = $row['role'];
-        $_SESSION['userID'] = $row['userID'];
-        if ($row['role'] == 'admin')
-            header("Location: index.php");
-        else
-            header("Location: index.php");
-    } else {
-        $msg = "invalid email/password";
-    }
+if (isset($_POST['subLogin']))
+{
+   $email = getsafevalue($conn,$_POST['email']);
+   $password = getsafevalue($conn,$_POST['password']);
+   $sqlLogin = "SELECT * from creds where email = '$email' and password = '$password' ";
+   $resLogin = mysqli_query($conn,$sqlLogin);
+   if (mysqli_num_rows($resLogin)>0)
+   {
+        $rowLogin = mysqli_fetch_assoc($resLogin);
+        $_SESSION['userID'] = $rowLogin['credID'];
+        $_SESSION['roleID'] = $rowLogin['userRole'];
+        $_SESSION['locationID'] = $rowLogin['location'];
+        header("Location: index.php");
+   }
 }
 ?>
 

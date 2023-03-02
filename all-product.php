@@ -10,9 +10,6 @@ $resProd = mysqli_query($conn, $sqlProd);
 <?php
 include('inc/head.php')
 ?>
-
-
-
 <!-- END: Head-->
 
 <!-- BEGIN: Body-->
