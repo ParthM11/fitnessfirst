@@ -73,26 +73,35 @@ include('inc/head.php')
                                                           <div class="form-group row">
                                                             
                                                             <div class="col-md-2">
-                                                                <table>
+                                                                <table class="table table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Page Name</th>
+                                                                        <th>Permission</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
                                                                     <?php 
                                                                         $sqlPer = "SELECT * from permisson";
                                                                         $resPer = mysqli_query($conn,$sqlPer);
                                                                         while ($rowPer = mysqli_fetch_assoc($resPer)) {
                                                                      ?>
-                                                                    <tr>
-                                                                    <th><?=$rowPer['perName']?></th>
-                                                                    <th></th>
-                                                                    <th><input type="checkbox" class="form-check" id="role[]" name="role[]" value="<?=$rowPer['perID']?>"></th>
-                                                                    <td></td>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                    <th><input type="checkbox" class="form-check" id="role[]" name="role[]" value="<?=$rowPer['perID']?>">edit</th>
-                                                                    </tr>
+                                                                        <td><?=$rowPer['perName']?></td>
 
-                                                                <?php }?>
-                                                                     
-                                                                </table>
+                                                                        <td>
+                                                                        <input type="checkbox"  id="role[]" name="role[]" value="<?=$rowPer['perID']?>">Add<br>
+                                                                        <input type="checkbox"  id="role[]" name="role[]" value="<?=$rowPer['perID']?>">Edit<br>
+                                                                        <input type="checkbox" name="" id="">Delete
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <?php }?>
+                                                                </tbody>
+                                                              
+                                                                 
+                                                             
+                                                            </table>
                                                             </div>
 
                                                            

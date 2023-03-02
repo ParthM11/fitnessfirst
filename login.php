@@ -3,15 +3,15 @@ session_start();
 include_once 'db_conn.php';
 if (isset($_POST['subLogin']))
 {
-   $email = getsafevalue($conn,$_POST['email']);
+   $userName = getsafevalue($conn,$_POST['userName']);
    $password = getsafevalue($conn,$_POST['password']);
-   $sqlLogin = "SELECT * from creds where email = '$email' and password = '$password' ";
+   $sqlLogin = "SELECT * from creds where userName = '$userName' and password = '$password' ";
    $resLogin = mysqli_query($conn,$sqlLogin);
    if (mysqli_num_rows($resLogin)>0)
    {
         $rowLogin = mysqli_fetch_assoc($resLogin);
         $_SESSION['userID'] = $rowLogin['credID'];
-        $_SESSION['roleID'] = $rowLogin['userRole'];
+        $_SESSION['roleID'] = $rowLogin['roleID'];
         $_SESSION['locationID'] = $rowLogin['location'];
         header("Location: index.php");
    }

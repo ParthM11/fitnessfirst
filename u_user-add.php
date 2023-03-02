@@ -1,5 +1,32 @@
 <?php
 include_once 'db_conn.php';
+session_start();
+    if(isset($_SESSION['roleID']))
+    {
+        $roleID = $_SESSION['roleID'];
+        $roleArr = array();
+        $i = 0;
+        $sqlChkPer = "SELECT * from permissionmanager where roleID = $roleID";
+        $resChkPer = mysqli_query($conn,$sqlChkPer);
+        while($rowChkPer = mysqli_fetch_assoc($resChkPer))
+        {
+            $roleArr[$i] = $rowChkPer['perID'];
+            $i = $i + 1;
+        }
+        if(!in_array(11,$roleArr))
+        {
+            header("Location: index.php");
+        }
+        $roleID = $_SESSION['roleID'];
+        if($roleID != 1)
+        {
+            $location = $_SESSION['locationID'];
+        }
+    }
+    else
+    {
+        header("Location: login.php");
+    }
 if(isset($_POST['subUser']))
 {
     $userName = $_POST['userName'];
@@ -10,9 +37,8 @@ if(isset($_POST['subUser']))
     $phone = $_POST['phone'];
     $location = $_POST['location'];
     
-    $sqlCredIns = "INSERT INTO `creds` (`userName`, `email`, `password`, `phone`, `userRole`,`status`,`location`) VALUES ('$userName','$email','$password','$phone','$userRole','$status','$location')";
-    
-
+    $sqlCredIns = "INSERT INTO `creds` (`userName`, `userEmail`, `password`, `phone`, `roleID`,`status`,`locationID`) VALUES ('$userName','$email','$password','$phone','$userRole','$status','$location')";
+    echo $sqlCredIns;
     if(mysqli_query($conn,$sqlCredIns))
         header("Location: u_user.php");
 }
@@ -54,7 +80,7 @@ include('inc/head.php')
                                                 <strong>User Master</strong>
                                             </div>
                                             <div class="card-body">
-                                                <form action="connection.php" method="POST">
+                                                <form action="" method="POST">
                                                     <div class="form-group row">
                                                         <label for="inputEmail3" class="col-sm-1 col-form-label">User Name</label>
                                                         <div class="col-md-2">
@@ -111,7 +137,7 @@ include('inc/head.php')
                                                                 <?php
                                                                 while ($rowBranch = mysqli_fetch_assoc($resBranch)) {
                                                                 ?>
-                                                                    <option value="<?= $rowBranch['locationID'] ?>"><?= $rowBranch['locationNam'] ?></option>
+                                                                    <option value="<?= $rowBranch['locationID'] ?>"><?= $rowBranch['locationName'] ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                         </div>
