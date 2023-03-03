@@ -52,50 +52,78 @@
                         <?php 
                             }
                          ?>
+                        <?php 
+                            if(in_array(13,$roleArr))
+                            {
+                        ?>
                         <li>
                             <a href="trial.php" class="">
                                 <span class="nav-text">Trial Booking</span>
                             </a>
                         </li>
+                        <?php } ?>
+                        <?php 
+                            if(in_array(14,$roleArr))
+                            {
+                        ?>
                         <li>
                             <a href="admission.php" class="">
                                 <span class="nav-text">Admission</span>
                             </a>
                         </li>
+                    <?php } ?>
 
                     </ul>
                 </li>
-
-
-
+                <?php 
+                    if(in_array(14,$roleArr))
+                    {
+                ?>
                 <li>
                     <a href="followup.php" class="waves-effect">
                         <i class="bx bx-phone-outgoing"></i>
                         <span key="t-dashboards">Followup</span>
                     </a>
                 </li>
+                <?php } ?>
+                <?php 
+                    if(in_array(10,$roleArr) || in_array(1,$roleArr))
+                    {
+                ?>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-plus-medical"></i>
                         <span key="t-dashboards">Attendance</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
+                        <?php } ?>
+                        <?php 
+                            if(in_array(10,$roleArr))
+                            {
+                        ?>
                         <li>
                             <a href="stdattendance.php">
                                 <span class="nav-text">Student Attendance</span>
                             </a>
                         </li>
+                        <?php } ?>
+                        <?php 
+                            if(in_array(1,$roleArr))
+                            {
+                        ?>
                         <li>
                             <a href="empattendance.php" class="">
                                 <span class="nav-text">Employee Attendance</span>
                             </a>
                         </li>
-
+                        <?php } ?>
 
                     </ul>
                 </li>
-
-
+                <?php 
+                    if(in_array(16,$roleArr))
+                    {
+                ?>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-briefcase-alt"></i>
@@ -125,9 +153,12 @@
 
                     </ul>
                 </li>
+                <?php } ?>
 
-
-
+                <?php 
+                    if(in_array(17,$roleArr))
+                    {
+                ?>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-dumbbell"></i>
@@ -139,11 +170,16 @@
                                 <span class="nav-text">All Members</span>
                             </a>
                         </li>
+                        <?php 
+                            if(in_array(18,$roleArr))
+                            {
+                        ?>
                         <li>
                             <a href="membership-pacakage.php" class="">
                                 <span class="nav-text">Membership Pacakage</span>
                             </a>
                         </li>
+                    <?php } ?>
                         <!-- <li>
                             <a href="membership-current.php" class="">
                                 <span class="nav-text">Current Membership</span>
@@ -151,19 +187,28 @@
                         </li> -->
                     </ul>
                 </li>
+            <?php } ?>
                 <li>
                     <a href="scorecard.php" class="waves-effect">
                         <i class="bx bx-analyse"></i>
                         <span key="t-dashboards">Performance Card</span>
                     </a>
                 </li>
+                <?php 
+                    if(in_array(4,$roleArr))
+                    {
+                ?>
                 <li>
                     <a href="salarayregister.php" class="waves-effect">
                         <i class="bx bx-calendar-alt"></i>
                         <span key="t-dashboards">Salary</span>
                     </a>
                 </li>
-
+                <?php } ?>
+                <?php 
+                    if(in_array(19,$roleArr))
+                    {
+                ?>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-package"></i>
@@ -182,12 +227,13 @@
                                 <span key="t-dashboards">Add Purchase</span>
                             </a>
                         </li>
-
-
-
                     </ul>
                 </li>
-
+            <?php } ?>
+            <?php 
+                if(in_array(20,$roleArr))
+                {
+            ?>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-cart-alt"></i>
@@ -208,13 +254,13 @@
                                 <span key="t-dashboards">Add Sales</span>
                             </a>
                         </li>
-
-
-
                     </ul>
                 </li>
-
-
+            <?php } ?>
+            <?php 
+                if(in_array(21,$roleArr))
+                {
+            ?>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-rupee"></i>
@@ -236,10 +282,13 @@
                                 <span class="nav-text">Expense Category</span>
                             </a>
                         </li>
-
                     </ul>
                 </li>
-
+            <?php } ?>
+            <?php 
+                if(in_array(3,$roleArr))
+                {
+            ?>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-calendar-check"></i>
@@ -281,10 +330,13 @@
                                 <span class="nav-text">Salary Report Report</span>
                             </a>
                         </li>
-
                     </ul>
                 </li>
-
+            <?php } ?>
+            <?php 
+                if(in_array(8,$roleArr))
+                {
+            ?>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-git-pull-request"></i>
@@ -326,7 +378,11 @@
 
                     </ul>
                 </li>
-
+            <?php } ?>
+            <?php 
+                if(in_array(9,$roleArr))
+                {
+            ?>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-server"></i>
@@ -348,10 +404,9 @@
                                 <span class="nav-text">Designation</span>
                             </a>
                         </li>
-                       
-
                     </ul>
                 </li>
+            <?php } ?>
             </ul>
         </div>
     </div>

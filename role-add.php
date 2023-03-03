@@ -3,7 +3,7 @@
     if(isset($_POST['subNewRole']))
     {
         $roleName = $_POST['roleName'];
-        $sqlInsRole = "INSERT into userrole values (NULL,'$roleName')";
+        $sqlInsRole = "INSERT into roles values (NULL,'$roleName')";
         echo $sqlInsRole;
         if(mysqli_query($conn,$sqlInsRole))
         {
@@ -91,7 +91,7 @@ include('inc/head.php')
 
                                                                         <td>
                                                                         <input type="checkbox"  id="role[]" name="role[]" value="<?=$rowPer['perID']?>">Add<br>
-                                                                        <input type="checkbox"  id="role[]" name="role[]" value="<?=$rowPer['perID']?>">Edit<br>
+                                                                        <input type="checkbox"  id="edit[]" name="edit[]" value="<?=$rowPer['perID']?>">Edit<br>
                                                                         <input type="checkbox" name="" id="">Delete
                                                                         </td>
 

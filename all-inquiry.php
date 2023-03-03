@@ -1,7 +1,11 @@
 <?php
 include_once 'db_conn.php';
+session_start();
+if(!isset($_SESSION['roleID']))
+{
+    header("Location: login.php");
+}    
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <?php
@@ -103,7 +107,14 @@ include('inc/head.php')
                                 <tbody>
                                     <?php
                                     $sqlIn = "SELECT s.*,l.locationName,t.trial1,t.trial2,t.trial3 FROM `student` as s inner JOIN location as l on s.locationID = l.locationID
-                                    left join trial as t on t.stdID = s.stdID";
+                                    left join trial as t on t.stdID = s.stdID ";
+                                    $locationID = "";
+                                    $roleID = $_SESSION['roleID'];
+                                    if($roleID != 1)
+                                    {
+                                        $locationID = $_SESSION['locationID'];
+                                        $sqlIn .= "where s.locationID = '$locationID'";
+                                    }
                                     $res = mysqli_query($conn, $sqlIn);
                                     while ($row = mysqli_fetch_assoc($res)) {
                                     ?>

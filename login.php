@@ -12,7 +12,7 @@ if (isset($_POST['subLogin']))
         $rowLogin = mysqli_fetch_assoc($resLogin);
         $_SESSION['userID'] = $rowLogin['credID'];
         $_SESSION['roleID'] = $rowLogin['roleID'];
-        $_SESSION['locationID'] = $rowLogin['location'];
+        $_SESSION['locationID'] = $rowLogin['locationID'];
         header("Location: index.php");
    }
 }
