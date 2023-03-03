@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2023 at 07:51 AM
+-- Generation Time: Mar 03, 2023 at 08:50 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -92,18 +92,22 @@ CREATE TABLE `creds` (
   `credID` int(11) NOT NULL,
   `userName` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `userID` int(11) NOT NULL,
-  `roleID` int(11) NOT NULL
+  `roleID` int(11) NOT NULL,
+  `userEmail` varchar(255) NOT NULL,
+  `phone` int(10) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `locationID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `creds`
 --
 
-INSERT INTO `creds` (`credID`, `userName`, `password`, `userID`, `roleID`) VALUES
-(1, 'kevin', 'kevin', 1, 1),
-(2, 'keyur', 'keyur', 2, 1),
-(3, 'LOL', 'LOL', 3, 1);
+INSERT INTO `creds` (`credID`, `userName`, `password`, `roleID`, `userEmail`, `phone`, `status`, `locationID`) VALUES
+(1, 'kevin', 'kevin', 1, '', 0, 0, 0),
+(2, 'keyur', 'keyur', 1, '', 0, 0, 0),
+(3, 'LOL', 'LOL', 1, '', 0, 0, 0),
+(4, 'parth', 'parth', 4, 'parth@gmail.com', 1234567890, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -136,16 +140,32 @@ INSERT INTO `day` (`dayID`, `days`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `emp`
+-- Table structure for table `expense`
 --
 
-CREATE TABLE `emp` (
-  `empID` int(11) NOT NULL,
-  `empName` varchar(255) NOT NULL,
-  `empContact` varchar(10) NOT NULL,
-  `empEmailID` varchar(50) NOT NULL,
-  `empAddress` varchar(255) NOT NULL,
-  `empRoleID` int(11) NOT NULL
+CREATE TABLE `expense` (
+  `expID` int(11) NOT NULL,
+  `locationID` int(11) NOT NULL,
+  `expcatID` int(11) NOT NULL,
+  `expdate` date NOT NULL,
+  `amnt` int(11) NOT NULL,
+  `remarks` varchar(255) NOT NULL,
+  `payamnt` int(11) NOT NULL,
+  `paydate` date NOT NULL,
+  `paycat` int(11) NOT NULL,
+  `payremark` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expensecat`
+--
+
+CREATE TABLE `expensecat` (
+  `expcatID` int(11) NOT NULL,
+  `expcat` int(11) NOT NULL,
+  `expsubcat` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -156,6 +176,7 @@ CREATE TABLE `emp` (
 
 CREATE TABLE `followup` (
   `fupID` int(11) NOT NULL,
+  `stdID` int(11) NOT NULL,
   `date` date NOT NULL,
   `type` int(11) NOT NULL,
   `task` varchar(255) NOT NULL,
@@ -166,15 +187,16 @@ CREATE TABLE `followup` (
 -- Dumping data for table `followup`
 --
 
-INSERT INTO `followup` (`fupID`, `date`, `type`, `task`, `priority`) VALUES
-(1, '0000-00-00', 1, 'asdfadsf', 'High'),
-(2, '2023-01-11', 1, 'dfadf', 'High'),
-(3, '2023-01-19', 1, 'asdfadsf', 'Med'),
-(4, '2023-01-20', 1, 'asdfasd', 'High'),
-(5, '2023-01-19', 1, 'asdfasd', 'Low'),
-(6, '2023-01-19', 1, 'asdfasd', 'High'),
-(7, '2023-01-21', 1, 'asdfadsf', 'Low'),
-(8, '2023-01-20', 1, 'asdfasd', 'High');
+INSERT INTO `followup` (`fupID`, `stdID`, `date`, `type`, `task`, `priority`) VALUES
+(1, 0, '0000-00-00', 1, 'asdfadsf', 'High'),
+(2, 0, '2023-01-11', 1, 'dfadf', 'High'),
+(3, 0, '2023-01-19', 1, 'asdfadsf', 'Med'),
+(4, 0, '2023-01-20', 1, 'asdfasd', 'High'),
+(5, 0, '2023-01-19', 1, 'asdfasd', 'Low'),
+(6, 0, '2023-01-19', 1, 'asdfasd', 'High'),
+(7, 0, '2023-01-21', 1, 'asdfadsf', 'Low'),
+(8, 0, '2023-01-20', 1, 'asdfasd', 'High'),
+(9, 20, '2023-02-07', 1, 'ddfaf', 'High');
 
 -- --------------------------------------------------------
 
@@ -238,18 +260,20 @@ CREATE TABLE `location` (
   `state` varchar(50) NOT NULL,
   `country` varchar(255) NOT NULL,
   `mobile` varchar(10) NOT NULL,
-  `locationEmail` varchar(255) NOT NULL
+  `printName` varchar(255) NOT NULL,
+  `locationEmail` varchar(255) NOT NULL,
+  `active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `location`
 --
 
-INSERT INTO `location` (`locationID`, `locationName`, `addline1`, `addline2`, `city`, `zipcode`, `state`, `country`, `mobile`, `locationEmail`) VALUES
-(1, 'Vesu', 'B-VIP Plaza', 'vesu Road', 'surat', '395007', 'Gujarat', 'India', '9925609707', 'vesu@gmail.com'),
-(2, 'Katargam', '', '', '', '', '', '', '', '0'),
-(3, 'Rustompura', '', '', '', '', '', '', '', '0'),
-(4, 'Adajan', '', '', '', '', '', '', '', '0');
+INSERT INTO `location` (`locationID`, `locationName`, `addline1`, `addline2`, `city`, `zipcode`, `state`, `country`, `mobile`, `printName`, `locationEmail`, `active`) VALUES
+(1, 'Vesu', 'B-VIP Plaza', 'vesu Road', 'surat', '395007', 'Gujarat', 'India', '9925609707', '', 'vesu@gmail.com', 0),
+(2, 'Katargam', '', '', '', '', '', '', '', '', '0', 0),
+(3, 'Rustompura', '', '', '', '', '', '', '', '', '0', 0),
+(7, 'Adajan', '46 Miramar crescent', '46 Miramar crescent', 'surat', '', 'Gujarat', 'India', '', 'Adajan Branch', '', 0);
 
 -- --------------------------------------------------------
 
@@ -296,6 +320,90 @@ INSERT INTO `mempackdays` (`mempackpdayID`, `mempackID`, `dayID`) VALUES
 (1, 9, 11),
 (2, 9, 5),
 (3, 9, 8);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permissionmanager`
+--
+
+CREATE TABLE `permissionmanager` (
+  `perMngID` int(11) NOT NULL,
+  `roleID` int(11) NOT NULL,
+  `perID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `permissionmanager`
+--
+
+INSERT INTO `permissionmanager` (`perMngID`, `roleID`, `perID`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 1, 6),
+(7, 1, 7),
+(8, 1, 8),
+(9, 1, 9),
+(10, 2, 1),
+(11, 2, 8),
+(12, 2, 9),
+(15, 1, 11),
+(16, 1, 12),
+(17, 1, 13),
+(18, 1, 14),
+(19, 1, 10),
+(20, 1, 16),
+(21, 1, 17),
+(22, 1, 18),
+(23, 1, 19),
+(24, 1, 20),
+(25, 1, 21),
+(33, 4, 10),
+(34, 4, 12),
+(35, 4, 13),
+(36, 4, 14),
+(37, 4, 15),
+(38, 4, 17),
+(39, 4, 20);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permisson`
+--
+
+CREATE TABLE `permisson` (
+  `perID` int(11) NOT NULL,
+  `perName` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `permisson`
+--
+
+INSERT INTO `permisson` (`perID`, `perName`) VALUES
+(1, 'Employee Attendance'),
+(2, 'Emlpoyee Master	'),
+(3, 'Reports	'),
+(4, 'Salary'),
+(7, 'Masters'),
+(8, 'Utility'),
+(9, 'Misc'),
+(10, 'Student Attendence'),
+(11, 'User'),
+(12, 'Inquiry'),
+(13, 'Trial'),
+(14, 'Admission'),
+(15, 'Followup'),
+(16, 'Products'),
+(17, 'Members'),
+(18, 'Membership Packages'),
+(19, 'Purchase'),
+(20, 'Sales'),
+(21, 'Expenses');
 
 -- --------------------------------------------------------
 
@@ -389,7 +497,8 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`roleID`, `role`) VALUES
 (1, 'admin'),
-(2, 'HQ');
+(2, 'HQ'),
+(4, 'Center Head');
 
 -- --------------------------------------------------------
 
@@ -510,7 +619,7 @@ INSERT INTO `student` (`stdID`, `stdfName`, `stdlName`, `stdAge`, `stdGender`, `
 (17, 'new', 'trail', 20, 'Male', '9265337904', 'reloadedmachine@gmail.com', 'TP college', 2, 2, 0, '', 'Med', 'sdfasdf'),
 (18, 'Mahesg', 'asda', 29, 'Male', '7874836363', 'machine@mail.com', 'jbkb', 1, 4, 0, '', 'Low', 'asdasd'),
 (19, 'Mahesg', 'asda', 29, 'Male', '7874836363', 'machine@mail.com', 'jbkb', 1, 4, 0, '', 'High', 'asdasd'),
-(20, 'keyur', 'thakkar', 21, 'Male', '1234345634', 'kevin11@gmail.com', 'SRKI', 2, 2, 2, '', 'High', 'test2');
+(20, 'keyur', 'thakkar', 21, 'Male', '1234345634', 'kevin11@gmail.com', 'SRKI', 1, 2, 2, '', 'High', 'test2');
 
 -- --------------------------------------------------------
 
@@ -668,41 +777,6 @@ CREATE TABLE `trial` (
 INSERT INTO `trial` (`trailID`, `stdID`, `trainer`, `trial1`, `trial2`, `trial3`) VALUES
 (1, 20, 'sdff', 1, 0, 0);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `user`
---
-
-CREATE TABLE `user` (
-  `userID` int(11) NOT NULL,
-  `prefix` varchar(255) NOT NULL,
-  `userfName` varchar(255) NOT NULL,
-  `userlName` varchar(255) NOT NULL,
-  `userEmail` varchar(255) NOT NULL,
-  `activeStatus` bit(1) NOT NULL,
-  `DOB` date NOT NULL,
-  `gender` varchar(255) NOT NULL,
-  `maritalStatus` varchar(255) NOT NULL,
-  `bloodGrp` varchar(255) NOT NULL,
-  `userContact` varchar(255) NOT NULL,
-  `userFamilyContact` varchar(255) NOT NULL,
-  `socialLink` varchar(255) NOT NULL,
-  `IDproof` varchar(255) NOT NULL,
-  `bankAcntHolderName` varchar(255) NOT NULL,
-  `acntNum` varchar(255) NOT NULL,
-  `bankName` varchar(255) NOT NULL,
-  `IFSCcode` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`userID`, `prefix`, `userfName`, `userlName`, `userEmail`, `activeStatus`, `DOB`, `gender`, `maritalStatus`, `bloodGrp`, `userContact`, `userFamilyContact`, `socialLink`, `IDproof`, `bankAcntHolderName`, `acntNum`, `bankName`, `IFSCcode`) VALUES
-(1, 'K', 'kevin', 'thakkar', 'kevin@gmail', b'1', '2022-11-01', 'Male', 'single', 'A+', '9925609707', '9825982787', 'http:/instagram.com', '', 'keyur thakkar', '2384121034', 'SBI', 'HF2434'),
-(2, 'K', 'keyur', 'thakkar', 'keyur@gmail.com', b'0', '0000-00-00', '', 'married', 'A+', '534514', '209349', 'http@instagram.comL', '', 'Kevin', '234134123', 'SBITO', 'F23134@adf.comL');
-
 --
 -- Indexes for dumped tables
 --
@@ -738,10 +812,16 @@ ALTER TABLE `day`
   ADD PRIMARY KEY (`dayID`);
 
 --
--- Indexes for table `emp`
+-- Indexes for table `expense`
 --
-ALTER TABLE `emp`
-  ADD PRIMARY KEY (`empID`);
+ALTER TABLE `expense`
+  ADD PRIMARY KEY (`expID`);
+
+--
+-- Indexes for table `expensecat`
+--
+ALTER TABLE `expensecat`
+  ADD PRIMARY KEY (`expcatID`);
 
 --
 -- Indexes for table `followup`
@@ -778,6 +858,18 @@ ALTER TABLE `memberpackage`
 --
 ALTER TABLE `mempackdays`
   ADD PRIMARY KEY (`mempackpdayID`);
+
+--
+-- Indexes for table `permissionmanager`
+--
+ALTER TABLE `permissionmanager`
+  ADD PRIMARY KEY (`perMngID`);
+
+--
+-- Indexes for table `permisson`
+--
+ALTER TABLE `permisson`
+  ADD PRIMARY KEY (`perID`);
 
 --
 -- Indexes for table `product`
@@ -860,12 +952,6 @@ ALTER TABLE `trial`
   ADD PRIMARY KEY (`trailID`);
 
 --
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`userID`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -891,7 +977,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `creds`
 --
 ALTER TABLE `creds`
-  MODIFY `credID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `credID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `day`
@@ -900,16 +986,22 @@ ALTER TABLE `day`
   MODIFY `dayID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `emp`
+-- AUTO_INCREMENT for table `expense`
 --
-ALTER TABLE `emp`
-  MODIFY `empID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `expense`
+  MODIFY `expID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `expensecat`
+--
+ALTER TABLE `expensecat`
+  MODIFY `expcatID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `followup`
 --
 ALTER TABLE `followup`
-  MODIFY `fupID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `fupID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `followuptype`
@@ -927,7 +1019,7 @@ ALTER TABLE `hsnnumber`
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `locationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `locationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `memberpackage`
@@ -940,6 +1032,18 @@ ALTER TABLE `memberpackage`
 --
 ALTER TABLE `mempackdays`
   MODIFY `mempackpdayID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `permissionmanager`
+--
+ALTER TABLE `permissionmanager`
+  MODIFY `perMngID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT for table `permisson`
+--
+ALTER TABLE `permisson`
+  MODIFY `perID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -963,7 +1067,7 @@ ALTER TABLE `reference`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `roleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `roleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `scorecard`
@@ -1018,12 +1122,6 @@ ALTER TABLE `transport`
 --
 ALTER TABLE `trial`
   MODIFY `trailID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
