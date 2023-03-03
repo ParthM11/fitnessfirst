@@ -1,6 +1,10 @@
 <?php
 include_once 'db_conn.php';
-$_SESSION['inquiry'] = "active";
+session_start();
+if(!isset($_SESSION['roleID']))
+{
+    header("Location: login.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +54,16 @@ include('inc/head.php')
                             </thead>
                             <tbody>
                                 <?php
-                                $sqlIn = "SELECT * FROM `student` as s inner JOIN location as l on s.locationID = l.locationID inner join followup as f on f.stdID = s.stdID inner join followuptype as ft on f.type = ft.fuptypeID order by f.priority ";
+                                $sqlIn = "SELECT * FROM `student` as s inner JOIN location as l on s.locationID = l.locationID inner join followup as f on f.stdID = s.stdID inner join followuptype as ft on f.type = ft.fuptypeID  ";
+                                    $locationID = "";
+                                    $roleID = $_SESSION['roleID'];
+                                    if($roleID != 1)
+                                    {
+                                        $locationID = $_SESSION['locationID'];
+                                        $sqlIn .= " where s.locationID = '$locationID' ";
+                                    }
+
+                                $sqlIn .= " order by f.priority"; 
                                 $res = mysqli_query($conn, $sqlIn);
                                 while ($row = mysqli_fetch_assoc($res)) {
                                 ?>
