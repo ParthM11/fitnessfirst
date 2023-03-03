@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2023 at 08:50 PM
+-- Generation Time: Mar 03, 2023 at 09:08 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -104,10 +104,15 @@ CREATE TABLE `creds` (
 --
 
 INSERT INTO `creds` (`credID`, `userName`, `password`, `roleID`, `userEmail`, `phone`, `status`, `locationID`) VALUES
-(1, 'kevin', 'kevin', 1, '', 0, 0, 0),
-(2, 'keyur', 'keyur', 1, '', 0, 0, 0),
-(3, 'LOL', 'LOL', 1, '', 0, 0, 0),
-(4, 'parth', 'parth', 4, 'parth@gmail.com', 1234567890, 1, 1);
+(3, 'admin', 'admin', 1, '', 0, 0, 0),
+(4, 'vesu@fitnessfirst', 'fitness1234@', 4, 'parth@gmail.com', 1234567890, 1, 1),
+(5, 'adajan@fitnessfirst', 'fitness1234@', 4, '', 0, 1, 7),
+(6, 'udhana@fitnessfirst', 'fitness1234@', 4, '', 0, 1, 10),
+(7, 'katargam@fitnessfirst', 'fitness1234@', 4, '', 0, 1, 2),
+(8, 'Jhangirpura@fitnessfirst', 'fitness1234@', 4, '', 0, 1, 11),
+(9, 'Rustompura@fitnessfirst', 'fitness1234@', 4, '', 0, 1, 3),
+(10, 'umra@fitnessfirst', 'fitness1234@', 4, '', 0, 1, 8),
+(11, 'varachha@fitnessfirst', 'fitness1234@', 4, '', 0, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -273,7 +278,11 @@ INSERT INTO `location` (`locationID`, `locationName`, `addline1`, `addline2`, `c
 (1, 'Vesu', 'B-VIP Plaza', 'vesu Road', 'surat', '395007', 'Gujarat', 'India', '9925609707', '', 'vesu@gmail.com', 0),
 (2, 'Katargam', '', '', '', '', '', '', '', '', '0', 0),
 (3, 'Rustompura', '', '', '', '', '', '', '', '', '0', 0),
-(7, 'Adajan', '46 Miramar crescent', '46 Miramar crescent', 'surat', '', 'Gujarat', 'India', '', 'Adajan Branch', '', 0);
+(7, 'Adajan', '46 Miramar crescent', '46 Miramar crescent', 'surat', '', 'Gujarat', 'India', '', 'Adajan Branch', '', 0),
+(8, 'Umra', '', '', '', '', '', '', '', '', '', 0),
+(9, 'Varachha', '', '', '', '', '', '', '', '', '', 0),
+(10, 'Udhana', '', '', '', '', '', '', '', '', '', 0),
+(11, 'Jhangirpura', '', '', '', '', '', '', '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -977,7 +986,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `creds`
 --
 ALTER TABLE `creds`
-  MODIFY `credID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `credID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `day`
@@ -1019,7 +1028,7 @@ ALTER TABLE `hsnnumber`
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `locationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `locationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `memberpackage`
