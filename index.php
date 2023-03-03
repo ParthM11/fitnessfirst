@@ -1,3 +1,7 @@
+<?php 
+    session_start();
+    include_once "db_conn.php";
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <?php

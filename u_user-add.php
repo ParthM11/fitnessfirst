@@ -1,32 +1,5 @@
 <?php
 include_once 'db_conn.php';
-session_start();
-    if(isset($_SESSION['roleID']))
-    {
-        $roleID = $_SESSION['roleID'];
-        $roleArr = array();
-        $i = 0;
-        $sqlChkPer = "SELECT * from permissionmanager where roleID = $roleID";
-        $resChkPer = mysqli_query($conn,$sqlChkPer);
-        while($rowChkPer = mysqli_fetch_assoc($resChkPer))
-        {
-            $roleArr[$i] = $rowChkPer['perID'];
-            $i = $i + 1;
-        }
-        if(!in_array(11,$roleArr))
-        {
-            header("Location: index.php");
-        }
-        $roleID = $_SESSION['roleID'];
-        if($roleID != 1)
-        {
-            $location = $_SESSION['locationID'];
-        }
-    }
-    else
-    {
-        header("Location: login.php");
-    }
 if(isset($_POST['subUser']))
 {
     $userName = $_POST['userName'];

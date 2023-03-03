@@ -1,3 +1,23 @@
+<?php 
+    session_start();
+    if(isset($_SESSION['roleID']))
+    {
+        $roleID = $_SESSION['roleID'];
+        $roleArr = array();
+        $i = 0;
+        $sqlChkPer = "SELECT * from permissionmanager where roleID = $roleID";
+        $resChkPer = mysqli_query($conn,$sqlChkPer);
+        while($rowChkPer = mysqli_fetch_assoc($resChkPer))
+        {
+            $roleArr[$i] = $rowChkPer['perID'];
+            $i = $i + 1;
+        }
+    }
+    else
+    {
+        header("Location: login.php");
+    }
+ ?>
 <div class="vertical-menu">
 
     <div data-simplebar class="h-100">
@@ -20,11 +40,18 @@
                         <span key="t-dashboards">Main</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
+                        <?php 
+                            if(in_array(12,$roleArr))
+                            {
+                     ?>
                         <li>
                             <a href="all-inquiry.php" class="">
                                 <span class="nav-text">Inquiry</span>
                             </a>
                         </li>
+                        <?php 
+                            }
+                         ?>
                         <li>
                             <a href="trial.php" class="">
                                 <span class="nav-text">Trial Booking</span>
