@@ -1,5 +1,6 @@
 <?php 
     session_start();
+    include_once 'db_conn.php';
     if(isset($_SESSION['roleID']))
     {
         $roleID = $_SESSION['roleID'];
